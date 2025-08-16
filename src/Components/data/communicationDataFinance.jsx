@@ -1,13 +1,13 @@
 import { Phone, Package, MessageCircle, Plus, Mail, DollarSign, TrendingUp, Users, Target } from "lucide-react"
 
 export const COLUMNS_FINANCE = [
-  { key: "inquiries", icon: <Phone className="w-3 h-3 sm:w-4 sm:h-4 2xl:h-6 2xl:w-6" />, label: "Inquiries" },
-  { key: "followUp", icon: <Package className="w-3 h-3 sm:w-4 sm:h-4 2xl:h-6 2xl:w-6" />, label: "Follow Up" },
-  { key: "engaging", icon: <MessageCircle className="w-3 h-3 sm:w-4 sm:h-4 2xl:h-6 2xl:w-6" />, label: "Engaging" },
-  { key: "he", icon: <Users className="w-3 h-3 sm:w-4 sm:h-4 2xl:h-6 2xl:w-6" />, label: "HE" },
-  { key: "pipeline", icon: <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4 2xl:h-6 2xl:w-6" />, label: "Pipeline" },
-  { key: "paid", icon: <DollarSign className="w-3 h-3 sm:w-4 sm:h-4 2xl:h-6 2xl:w-6" />, label: "Paid" },
-  { key: "paid2", icon: <DollarSign className="w-3 h-3 sm:w-4 sm:h-4 2xl:h-6 2xl:w-6" />, label: "Paid" },
+  { key: "inquiries", icon: <Phone className="w-3 h-3 sm:w-4 sm:h-4 xl:h-3 xl:w-3 2xl:h-6 2xl:w-6" />, label: "Inquiries" },
+  { key: "followUp", icon: <Package className="w-3 h-3 sm:w-4 sm:h-4 xl:h-3 xl:w-3 2xl:h-6 2xl:w-6" />, label: "Follow Up" },
+  { key: "engaging", icon: <MessageCircle className="w-3 h-3 sm:w-4 xl:h-3 xl:w-3 sm:h-4 2xl:h-6 2xl:w-6" />, label: "Engaging" },
+  { key: "he", icon: <Users className="w-3 h-3 sm:w-4 sm:h-4 xl:h-3 xl:w-3 2xl:h-6  2xl:w-6" />, label: "HE" },
+  { key: "pipeline", icon: <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4 xl:h-3 xl:w-3 2xl:h-6 2xl:w-6" />, label: "Pipeline" },
+  { key: "paid", icon: <DollarSign className="w-3 h-3 sm:w-4 sm:h-4 xl:h-3 xl:w-3 2xl:h-6 2xl:w-6" />, label: "Paid" },
+  { key: "paid2", icon: <DollarSign className="w-3 h-3 sm:w-4 sm:h-4 xl:h-3 xl:w-3 2xl:h-6 2xl:w-6" />, label: "Paid" },
 ]
 
 export const TABLE_DATA_FINANCE = [

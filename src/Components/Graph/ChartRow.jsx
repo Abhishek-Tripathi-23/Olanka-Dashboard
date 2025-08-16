@@ -13,9 +13,9 @@ export default function ChartRow({ date, payments, pipelines, maxValue }) {
   };
 
   return (
-    <div className="flex items-center py-2">
+    <div className="flex items-center xl:py-[2.2px] 2xl:py-2">
       {/* Date label */}
-      <div className="w-16 2xl:max-h-[1970px] text-xs text-gray-600 text-left flex-shrink-0 pr-2">
+      <div className="w-16 xl:max-h-[1000px] 2xl:max-h-[1970px] text-xs text-gray-600 text-left flex-shrink-0 pr-2">
         {date}
       </div>
 
@@ -24,12 +24,12 @@ export default function ChartRow({ date, payments, pipelines, maxValue }) {
         <div className="relative py-[2px] 2xl:py-3.75">
           {/* Payment bar */}
           <div
-            className="h-3 2xl:h-4 bg-blue-400 rounded-sm mb-0.5"
+            className="h-3 xl:h-1.75 2xl:h-4 bg-blue-400 rounded-sm mb-0.5"
             style={{ width: `${getBarWidth(paymentsWidth)}%` }}
           />
           {/* Pipeline bar */}
           <div
-            className="h-3 2xl:h-4 bg-black rounded-sm"
+            className="h-3 xl:h-1.75 2xl:h-4 bg-black rounded-sm"
             style={{ width: `${getBarWidth(pipelinesWidth)}%` }}
           />
         </div>

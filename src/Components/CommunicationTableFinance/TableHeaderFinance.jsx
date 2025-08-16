@@ -5,7 +5,7 @@ const TableHeaderFinance = React.memo(() => {
   return (
     <thead>
       <tr className="bg-[#1CB759] text-white">
-        <th className="w-10 !w-10 p-1 sm:p-2 lg:p-3 xl:p-4 2xl:p-7 border-r border-gray-100 text-center text-xs sm:text-sm lg:text-base" scope="col" style={{ width: '2.5rem', minWidth: '2.5rem', maxWidth: '2.5rem' }}>
+        <th className="w-10 !w-10 p-1 sm:p-2 lg:p-3 xl:p-1 2xl:p-7 border-r border-gray-100 text-center text-xs sm:text-sm lg:text-base" scope="col" style={{ width: '2.5rem', minWidth: '2.5rem', maxWidth: '2.5rem' }}>
           <span className="sr-only">Name and Profile</span>
         </th>
         {COLUMNS_FINANCE.map((column, index) => (
@@ -16,7 +16,7 @@ const TableHeaderFinance = React.memo(() => {
           >
             <div className="flex items-center justify-center gap-1 sm:gap-0.5">
               {column.icon}
-              <span className="hidden sm:inline text-xs sm:text-xs lg:text-[12px] 2xl:text-3xl">{column.label}</span>
+              <span className="hidden sm:inline text-xs sm:text-xs lg:text-[12px] xl:text-[8px] 2xl:text-3xl">{column.label}</span>
             </div>
           </th>
         ))}
