@@ -32,8 +32,8 @@ const SummaryRowFinance = React.memo(({ data }) => {
         // Special handling for paid2 column
         if (column.key === "paid2") {
           return (
-            <td key={column.key} className={isLast ? "w-20 relative text-xs sm:text-sm lg:text-base h-full" : "w-20  border-r border-gray-800 relative text-xs sm:text-sm lg:text-base h-full"}>
-              <div className="h-full xl:w-20 flex justify-center items-center">
+            <td key={column.key} className={isLast ? "w-20  relative text-xs sm:text-sm lg:text-base h-full" : "w-20  border-r border-gray-800 relative text-xs sm:text-sm lg:text-base h-full"}>
+              <div className="h-full xl:w-20 2xl:w-full flex justify-center items-center">
                 <div className="bg-green-500 text-white h-12 sm:h-14 2xl:h-full  xl:h-14 w-full flex justify-center items-center font-bold text-sm sm:text-xl xl:text-xs 2xl:text-3xl">
                   {data.totalPaid}
                 </div>
