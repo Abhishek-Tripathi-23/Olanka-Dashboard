@@ -54,7 +54,7 @@ export const CombinedPage = () => {
 </div>
 
 
-    <div className="flex flex-col gap-4 xl:flex-1 xl:grid xl:grid-flow-col 2xl:justify-around xl:auto-cols-max xl:gap-10 overflow-x-auto p-6 bg-[#F0DCE3] w-full min-h-screen">
+    <div className="flex flex-col gap-4 lg:flex-1 lg:grid lg:grid-flow-col 2xl:justify-around sm:auto-cols-max lg:gap-10 overflow-x-auto p-6 bg-[#F0DCE3] w-full min-h-screen">
   <CommunicationTable/>
   <HorizontalBarChart/>
   <CommunicationTableFinance/>

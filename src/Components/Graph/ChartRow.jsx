@@ -13,15 +13,15 @@ export default function ChartRow({ date, payments, pipelines, maxValue }) {
   };
 
   return (
-    <div className="flex items-center xl:py-[2.2px] 2xl:py-2">
+    <div className="flex items-center  xl:py-[2.2px] 2xl:py-2">
       {/* Date label */}
-      <div className="w-16 xl:max-h-[1000px] 2xl:max-h-[1970px] text-xs text-gray-600 text-left flex-shrink-0 pr-2">
+      <div className="w-16   xl:max-h-[1000px] 2xl:max-h-[1970px] text-xs text-gray-600 text-left flex-shrink-0 pr-2">
         {date}
       </div>
 
       {/* Chart area */}
       <div className="flex-1 relative">
-        <div className="relative py-[2px] 2xl:py-3.75">
+        <div className="relative lg:py-1.75 xl:py-[2px] 2xl:py-3.75">
           {/* Payment bar */}
           <div
             className="h-3 xl:h-1.75 2xl:h-4 bg-blue-400 rounded-sm mb-0.5"

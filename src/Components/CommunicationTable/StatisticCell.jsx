@@ -58,7 +58,7 @@ const StatisticCell = React.memo(({ data, columnKey, indicators, pkgSendsActive,
 
   return (
     <td className={`w-5 2xl:w-96 2xl:h-36  ${isLast ? " relative text-xs sm:text-sm lg:text-base xl:text-lg 2xl:text-xl 5xl:text-3xl h-12" : "border-r border-gray-200 relative text-xs sm:text-sm lg:text-base xl:text-lg 2xl:text-xl h-12  "}`}>
-      <div className="grid grid-cols-2 gap-0 text-center text-xs sm:text-sm lg:text-base xl:text-lg 2xl:text-xl h-full xl:w-20 lg:w-full 2xl:w-full">
+      <div className="grid grid-cols-2 gap-0 text-center text-xs sm:text-sm lg:text-base xl:text-lg  2xl:text-xl h-full xl:w-20 lg:w-full 2xl:w-full">
         {shouldShowIndicators ? (
           <>
             {/* Top-left indicator */}
