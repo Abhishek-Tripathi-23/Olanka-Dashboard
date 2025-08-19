@@ -46,7 +46,7 @@ const SummaryRowFinance = React.memo(({ data }) => {
 
         return (
           <td key={column.key} className={isLast ? "w-16 relative text-xs sm:text-sm sm:h-16 lg:text-base xl:text-xs h-full" : "w-16 border-r border-gray-800 relative text-xs sm:text-sm sm:h-12 lg:text-base xl:text-xs xl:h-full"}>
-            <div className="grid grid-cols-2 gap-0 text-center text-xs sm:text-sm sm:h-14 lg:text-base xl:text-xs xl:h-14 2xl:h-full">
+            <div className="grid grid-cols-2 gap-0 text-center text-xs sm:text-sm h-12 sm:h-14 lg:text-base xl:text-xs xl:h-14 2xl:h-full">
               {/* For followUp, he, and paid columns - show indicators only */}
               {(column.key === "followUp" || column.key === "he" || column.key === "paid") ? (
                 <>

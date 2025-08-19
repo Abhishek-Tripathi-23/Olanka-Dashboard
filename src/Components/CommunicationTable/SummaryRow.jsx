@@ -10,7 +10,7 @@ const SummaryRow = React.memo(({ data }) => {
 
   return (
     <tr className="bg-[#C4C4C4] font-bold border-t border-gray-800">
-      <td className="px-2 py-2 border-r border-gray-800 flex justify-around items-center gap-2 sm:gap-3">
+      <td className="px-2 py-2 xl:py-3.5 border-r border-gray-800 flex justify-around items-center gap-2 sm:gap-3">
         <div className="flex gap-1 sm:gap-2">
           {data.badges.map((badge, index) => (
             <div

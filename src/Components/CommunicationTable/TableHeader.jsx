@@ -12,7 +12,7 @@ const TableHeader = React.memo(() => {
         {COLUMNS.map((column, index) => (
           <th
             key={column.key}
-            className={index === COLUMNS.length - 1 ? "xl:w-10 2xl:w-24 px-1 py-1 text-center text-xs sm:text-sm lg:text-sm" : " w-24 px-1 py-2 border-r border-gray-600 text-center text-xs sm:text-sm lg:text-base"}
+            className={index === COLUMNS.length - 1 ? "xl:w-10 2xl:w-24 px-1 py-1 text-center text-xs sm:text-sm lg:text-sm" : "xl:w-16 w-24 px-1 py-2 border-r border-gray-600 text-center text-xs sm:text-sm lg:text-base"}
             scope="col"
           >
             <div className="flex items-center justify-center gap-1">

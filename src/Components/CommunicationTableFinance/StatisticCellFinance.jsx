@@ -64,8 +64,8 @@ const StatisticCellFinance = React.memo(({ data, columnKey, indicators, followUp
   const [primary, secondary] = Array.isArray(data) ? data : [0, 0]
 
   return (
-    <td className={`w-16  2xl:w-96 2xl:h-36 ${isLast ? " relative text-xs sm:text-sm lg:text-base h-12  2xl:h-full" : "border-r border-gray-400 relative text-xs sm:text-sm lg:text-base sm:h-8 xl:h-full 2xl:h-12 "} ${columnKey === "paid" ? "bg-[#EAEAEA] border-t border-b border-l border-gray-400" : ""}`}>
-      <div className="grid grid-cols-2 gap-0 text-center text-xs sm:text-sm lg:text-base xl:h-13 2xl:h-full h-full  xl:w-16 2xl:w-full">
+    <td className={`w-16  2xl:w-96 2xl:h-36 ${isLast ? " relative text-xs sm:text-sm lg:text-base h-12 2xl:h-full" : "border-r border-gray-400 relative text-xs sm:text-sm lg:text-base sm:h-8 xl:h-full 2xl:h-12 h-12"} ${columnKey === "paid" ? "bg-[#EAEAEA] border-t border-b border-l border-gray-400" : ""}`}>
+      <div className="grid grid-cols-2 gap-0 text-center text-xs sm:text-sm lg:text-base xl:h-13 2xl:h-full  h-full xl:w-16 2xl:w-full">
         {shouldShowIndicators ? (
           <>
             {/* Top-left indicator */}
