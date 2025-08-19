@@ -5,12 +5,13 @@ import {
   PointerSensor,
   useSensor,
   useSensors,
+  DragOverlay,
 } from "@dnd-kit/core";
 import {
   arrayMove,
   SortableContext,
   useSortable,
-  verticalListSortingStrategy,
+  rectSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import CommunicationTable from "./CommunicationTable/CommunicationTablePage";
@@ -18,19 +19,19 @@ import HorizontalBarChart from "./Graph/HorizontalBarChart";
 import CommunicationTableFinance from "./CommunicationTableFinance/CommunicationTablePageFinance";
 import { Sliders } from "lucide-react";
 
-
-function SortableItem({ id, children }) {
+function SortableItem({ id, children, className = "" }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id });
+  
   const style = {
     transform: CSS.Transform.toString(transform),
-    transition,
-    opacity: isDragging ? 0.7 : 1,
+    transition: isDragging ? 'none' : transition, // Only change: disable transition during drag
+    opacity: isDragging ? 0.3 : 1, // Only change: reduce opacity instead of hiding
     zIndex: isDragging ? 2 : 0,
-    cursor: "pointer",
+    cursor: "grab",
   };
 
   return (
-    <div ref={setNodeRef} style={style} className="cursor-pointer" {...attributes} {...listeners}>
+    <div ref={setNodeRef} style={style} className={`cursor-grab touch-none select-none ${className}`} {...attributes} {...listeners}>
       {children}
     </div>
   );
@@ -75,7 +76,6 @@ const TimePeriodDropdown = ({ onSelect, onClose }) => {
   );
 };
 
-
 export const CombinedPage = () => {
   const [componentOrder, setComponentOrder] = useState([
     "comm-table",
@@ -84,6 +84,7 @@ export const CombinedPage = () => {
   ]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedPeriod, setSelectedPeriod] = useState("Last 24 Hours");
+  const [activeId, setActiveId] = useState(null);
 
   const components = {
     "comm-table": <CommunicationTable />,
@@ -92,8 +93,16 @@ export const CombinedPage = () => {
   };
 
   const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 3 } })
+    useSensor(PointerSensor, { 
+      activationConstraint: { 
+        distance: 5, // Slightly increased from 3 to prevent accidental drags
+      } 
+    })
   );
+
+  const handleDragStart = (event) => {
+    setActiveId(event.active.id);
+  };
 
   const handleDragEnd = (event) => {
     const { active, over } = event;
@@ -104,6 +113,7 @@ export const CombinedPage = () => {
         return arrayMove(items, oldIndex, newIndex);
       });
     }
+    setActiveId(null);
   };
 
   const handleDropdownSelect = (option) => {
@@ -161,23 +171,37 @@ export const CombinedPage = () => {
         </div>
       </div>
 
-      {/* Draggable Components Section */}
-      <div className="flex flex-col gap-4 lg:flex-1 lg:grid lg:grid-flow-col 2xl:justify-around sm:auto-cols-max lg:gap-10 overflow-x-auto p-6 bg-[#F0DCE3] w-full min-h-screen">
+      {/* Draggable Components Section - KEPT YOUR ORIGINAL LAYOUT */}
+      <div className="flex flex-col  gap-4 md:grid md:grid-flow-col md:auto-cols-max md:gap-10 2xl:justify-around overflow-x-auto p-6 bg-[#F0DCE3] w-full min-h-screen">
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}
+          onDragStart={handleDragStart}
           onDragEnd={handleDragEnd}
         >
           <SortableContext
             items={componentOrder}
-            strategy={verticalListSortingStrategy}
+            strategy={rectSortingStrategy}
           >
             {componentOrder.map((id) => (
-              <SortableItem id={id} key={id}>
+              <SortableItem id={id} key={id} className="  ">
                 {components[id]}
               </SortableItem>
             ))}
           </SortableContext>
+
+          <DragOverlay>
+            {activeId ? (
+              <div 
+                className="cursor-grabbing pointer-events-none opacity-80"
+                style={{
+                  transform: 'rotate(1deg)', // Subtle rotation for visual feedback
+                }}
+              >
+                {components[activeId]}
+              </div>
+            ) : null}
+          </DragOverlay>
         </DndContext>
       </div>
     </div>

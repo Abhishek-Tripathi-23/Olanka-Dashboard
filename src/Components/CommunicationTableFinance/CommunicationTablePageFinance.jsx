@@ -12,9 +12,9 @@ const CommunicationTableFinance = ({ data = TABLE_DATA_FINANCE, summaryData = SU
   const memoizedSummaryData = useMemo(() => summaryData, [summaryData])
 
   return (
-    <div className="bg-white w-full xl:max-w-[555px] 2xl:max-w-[1400px]  px-4 py-2 xl:py-2 lg:min-h-[1100px] lg:max-h-[1110px] xl:min-h-[753px] xl:max-h-[755px] 2xl:max-h-[1960px] rounded-2xl">
+    <div className="bg-white w-full md:max-w-[690px] xl:max-w-[555px] 2xl:max-w-[1400px]  px-4 py-2 xl:py-2 md:min-h-[830px] md:max-h-[830px] lg:min-h-[1100px] lg:max-h-[1110px] xl:min-h-[753px] xl:max-h-[755px] 2xl:max-h-[1960px] rounded-2xl">
       <div className="w-full border border-black rounded-2xl mt-2 overflow-x-auto">
-        <table className="bg-white rounded-2xl shadow-lg w-full min-w-[480px] 2xl:h-96" role="table" aria-label="Communication metrics table">
+        <table className="bg-white rounded-2xl shadow-lg  w-full min-w-[480px] 2xl:h-96" role="table" aria-label="Communication metrics table">
           <TableHeaderFinance />
           <tbody>
             {memoizedData.map((row) => (

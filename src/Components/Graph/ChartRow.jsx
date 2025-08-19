@@ -21,7 +21,7 @@ export default function ChartRow({ date, payments, pipelines, maxValue }) {
 
       {/* Chart area */}
       <div className="flex-1 relative">
-        <div className="relative lg:py-1.75 xl:py-[2px] 2xl:py-3.75">
+        <div className="relative md:py-[1px] lg:py-1.75 xl:py-[2px] 2xl:py-3.75">
           {/* Payment bar */}
           <div
             className="h-3 xl:h-1.75 2xl:h-4 bg-blue-400 rounded-sm mb-0.5"
