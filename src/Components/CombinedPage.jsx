@@ -85,12 +85,41 @@ export const CombinedPage = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedPeriod, setSelectedPeriod] = useState("Last 24 Hours");
   const [activeId, setActiveId] = useState(null);
+  const [dimensions, setDimensions] = useState({
+    width: 0,
+    height: 0,
+    viewportRatio: 0
+  });
 
   const components = {
     "comm-table": <CommunicationTable />,
     "bar-chart": <HorizontalBarChart />,
     "finance-table": <CommunicationTableFinance />,
   };
+
+  // Add useEffect to track dimensions
+  useEffect(() => {
+    const updateDimensions = () => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const viewportRatio = (width / height).toFixed(2);
+      
+      setDimensions({
+        width,
+        height,
+        viewportRatio
+      });
+    };
+
+    // Initial measurement
+    updateDimensions();
+
+    // Add event listener for window resize
+    window.addEventListener('resize', updateDimensions);
+
+    // Cleanup
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, []);
 
   const sensors = useSensors(
     useSensor(PointerSensor, { 
@@ -153,9 +182,14 @@ export const CombinedPage = () => {
           <div className="w-5 h-5 lg:w-8 lg:h-8 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center flex-shrink-0">
             <span className="text-white font-bold text-xs lg:text-sm">V</span>
           </div>
-          <span className="text-gray-900 font-medium text-xs lg:text-lg whitespace-nowrap hidden sm:inline">
-            Team Victorious
-          </span>
+          <div className="flex flex-col items-start">
+            <span className="text-gray-900 font-medium text-xs lg:text-lg whitespace-nowrap hidden sm:inline">
+              Team Victorious
+            </span>
+            <div className="text-xs text-gray-600 hidden sm:block">
+              {dimensions.width} × {dimensions.height} ({dimensions.viewportRatio})
+            </div>
+          </div>
           <span className="text-gray-900 font-medium text-xs sm:hidden">
             Team V
           </span>
