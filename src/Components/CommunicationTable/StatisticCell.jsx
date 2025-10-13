@@ -2,7 +2,9 @@ import React from "react"
 import { styles } from "../styles/communicationStyles"
 
 const StatisticCell = React.memo(({ data, columnKey, indicators, pkgSendsActive, newActive, callsActive, whatsappActive, emailActive, isLast = false }) => {
-  const [primary, secondary] = data
+  // Handle different data structures based on column type
+  const isFourValueColumn = columnKey === 'calls' || columnKey === 'whatsapp' || columnKey === 'email'
+  const [primary, secondary, tertiary, quaternary] = isFourValueColumn ? data : [...data, 0, 0]
   const hasIndicator = indicators[columnKey]
 
   const getIndicatorPosition = (key, isSecondary = false) => {
@@ -91,10 +93,10 @@ const StatisticCell = React.memo(({ data, columnKey, indicators, pkgSendsActive,
           </>
         ) : (
           <>
-            <div className="text-center font-semibold text-xs sm:text-sm lg:text-base xl:text-xs 2xl:text-4xl flex justify-center items-center ">{primary}</div>
-            <div className={`text-center font-semibold text-xs sm:text-sm lg:text-base xl:text-xs 2xl:text-4xl ${getBackgroundColor()} h-full flex  justify-center items-center`}>{secondary}</div>
-            <div className="text-center font-semibold text-xs sm:text-sm lg:text-base xl:text-xs 2xl:text-4xl h-full border-t border-t-gray-300 flex  justify-center items-center">{primary + 10}</div>
-            <div className={`text-center font-semibold text-xs sm:text-sm lg:text-base xl:text-xs 2xl:text-4xl ${getBackgroundColor()} h-full  border-t border-t-gray-300 flex justify-center items-center`}>{secondary + 8}</div>
+            <div className="text-center font-semibold text-xs sm:text-sm lg:text-base xl:text-xs 2xl:text-4xl flex justify-center items-center ">{primary || 0}</div>
+            <div className={`text-center font-semibold text-xs sm:text-sm lg:text-base xl:text-xs 2xl:text-4xl ${getBackgroundColor()} h-full flex  justify-center items-center`}>{secondary || 0}</div>
+            <div className="text-center font-semibold text-xs sm:text-sm lg:text-base xl:text-xs 2xl:text-4xl h-full border-t border-t-gray-300 flex  justify-center items-center">{tertiary || 0}</div>
+            <div className={`text-center font-semibold text-xs sm:text-sm lg:text-base xl:text-xs 2xl:text-4xl ${getBackgroundColor()} h-full  border-t border-t-gray-300 flex justify-center items-center`}>{quaternary || 0}</div>
           </>
         )}
       </div>

@@ -12,7 +12,7 @@ const TableRow = React.memo(({ data }) => {
         <span className="text-gray-600 text-xs sm:text-sm lg:text-xs xl:text-xs 2xl:text-3xl">{data.id}.</span>
         <span className="hidden sm:inline font-medium text-xs sm:text-sm lg:text-xs 2xl:text-3xl">{data.name}</span>
         </div>
-        <AvatarWithBadge name={data.name} badge={data.badge} />
+        <AvatarWithBadge name={data.name} badge={data.badge} image={data.image} />
        
       </td>
 

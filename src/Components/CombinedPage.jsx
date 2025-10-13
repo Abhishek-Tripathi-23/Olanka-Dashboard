@@ -92,9 +92,9 @@ export const CombinedPage = () => {
   });
 
   const components = {
-    "comm-table": <CommunicationTable />,
+    "comm-table": <CommunicationTable selectedPeriod={selectedPeriod} />,
     "bar-chart": <HorizontalBarChart />,
-    "finance-table": <CommunicationTableFinance />,
+    "finance-table": <CommunicationTableFinance selectedPeriod={selectedPeriod} />,
   };
 
   // Add useEffect to track dimensions
@@ -186,9 +186,7 @@ export const CombinedPage = () => {
             <span className="text-gray-900 font-medium text-xs lg:text-lg whitespace-nowrap hidden sm:inline">
               Team Victorious
             </span>
-            <div className="text-xs text-gray-600 hidden sm:block">
-              {dimensions.width} × {dimensions.height} ({dimensions.viewportRatio})
-            </div>
+            
           </div>
           <span className="text-gray-900 font-medium text-xs sm:hidden">
             Team V
