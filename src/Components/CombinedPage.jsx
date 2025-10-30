@@ -14,10 +14,11 @@ import {
   rectSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { Sliders, ChevronDown } from "lucide-react";
 import CommunicationTable from "./CommunicationTable/CommunicationTablePage";
 import HorizontalBarChart from "./Graph/HorizontalBarChart";
 import CommunicationTableFinance from "./CommunicationTableFinance/CommunicationTablePageFinance";
-import { Sliders } from "lucide-react";
+import { fetchAssistantManagers } from "../services/apiService";
 
 function SortableItem({ id, children, className = "" }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id });
@@ -76,6 +77,42 @@ const TimePeriodDropdown = ({ onSelect, onClose }) => {
   );
 };
 
+// Team Dropdown component
+const TeamDropdown = ({ teams, onSelect, onClose, selectedTeam }) => {
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        onClose();
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [onClose]);
+
+  return (
+    <div
+      ref={dropdownRef}
+      className="absolute top-full right-0 mt-1 w-48 bg-white shadow-lg rounded-md border border-gray-200 z-50"
+    >
+      {teams.map((team) => (
+        <div
+          key={team.id}
+          className={`px-4 py-2 text-sm cursor-pointer first:rounded-t-md last:rounded-b-md ${
+            selectedTeam?.id === team.id
+              ? "bg-teal-50 text-teal-700 font-medium"
+              : "text-gray-700 hover:bg-gray-100"
+          }`}
+          onClick={() => onSelect(team)}
+        >
+          {team.name}
+        </div>
+      ))}
+    </div>
+  );
+};
+
 export const CombinedPage = () => {
   const [componentOrder, setComponentOrder] = useState([
     "comm-table",
@@ -83,7 +120,10 @@ export const CombinedPage = () => {
     "finance-table",
   ]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [teamDropdownOpen, setTeamDropdownOpen] = useState(false);
   const [selectedPeriod, setSelectedPeriod] = useState("Last 24 Hours");
+  const [assistantManagers, setAssistantManagers] = useState([]);
+  const [selectedTeam, setSelectedTeam] = useState(null);
   const [activeId, setActiveId] = useState(null);
   const [dimensions, setDimensions] = useState({
     width: 0,
@@ -92,10 +132,30 @@ export const CombinedPage = () => {
   });
 
   const components = {
-    "comm-table": <CommunicationTable selectedPeriod={selectedPeriod} />,
-    "bar-chart": <HorizontalBarChart />,
-    "finance-table": <CommunicationTableFinance selectedPeriod={selectedPeriod} />,
+    "comm-table": <CommunicationTable selectedPeriod={selectedPeriod} selectedTeam={selectedTeam} />,
+    "bar-chart": <HorizontalBarChart selectedTeam={selectedTeam} />,
+    "finance-table": <CommunicationTableFinance selectedPeriod={selectedPeriod} selectedTeam={selectedTeam} />,
   };
+
+  // Fetch assistant managers on component mount
+  useEffect(() => {
+    const fetchManagers = async () => {
+      try {
+        const response = await fetchAssistantManagers();
+        if (response.success && response.data) {
+          setAssistantManagers(response.data);
+          // Set first manager as default selection
+          if (response.data.length > 0 && !selectedTeam) {
+            setSelectedTeam(response.data[0]);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching assistant managers:', error);
+      }
+    };
+
+    fetchManagers();
+  }, [selectedTeam]);
 
   // Add useEffect to track dimensions
   useEffect(() => {
@@ -103,7 +163,7 @@ export const CombinedPage = () => {
       const width = window.innerWidth;
       const height = window.innerHeight;
       const viewportRatio = (width / height).toFixed(2);
-      
+
       setDimensions({
         width,
         height,
@@ -150,6 +210,11 @@ export const CombinedPage = () => {
     setDropdownOpen(false);
   };
 
+  const handleTeamSelect = (team) => {
+    setSelectedTeam(team);
+    setTeamDropdownOpen(false);
+  };
+
   return (
     <div className="flex flex-col">
       {/* Header Section */}
@@ -179,17 +244,35 @@ export const CombinedPage = () => {
           </div>
         </div>
         <div className="bg-white rounded-full px-2 py-1 lg:px-4 lg:py-2 flex items-center gap-2 lg:gap-3 shadow-sm mx-2 lg:mx-0 flex-shrink-0">
-          <div className="w-5 h-5 lg:w-8 lg:h-8 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center flex-shrink-0">
-            <span className="text-white font-bold text-xs lg:text-sm">V</span>
+          <div className="w-5 h-5 lg:w-8 lg:h-8 bg-gradient-to-br from-teal-400 to-teal-600 rounded-full flex items-center justify-center flex-shrink-0">
+            <span className="text-white font-bold text-xs lg:text-sm">
+              {selectedTeam?.name?.charAt(0) || 'T'}
+            </span>
           </div>
           <div className="flex flex-col items-start">
-            <span className="text-gray-900 font-medium text-xs lg:text-lg whitespace-nowrap hidden sm:inline">
-              Team Victorious
-            </span>
-            
+            <div className="flex items-center gap-1 relative">
+              <span
+                className="text-gray-900 font-medium text-xs lg:text-lg whitespace-nowrap hidden sm:inline cursor-pointer hover:text-teal-600 transition-colors"
+                onClick={() => setTeamDropdownOpen(!teamDropdownOpen)}
+              >
+                {selectedTeam?.name || 'Select Team'}
+              </span>
+              <ChevronDown
+                className="w-3 h-3 lg:w-4 lg:h-4 text-gray-600 cursor-pointer hover:text-teal-600 transition-colors hidden sm:inline"
+                onClick={() => setTeamDropdownOpen(!teamDropdownOpen)}
+              />
+              {teamDropdownOpen && (
+                <TeamDropdown
+                  teams={assistantManagers}
+                  onSelect={handleTeamSelect}
+                  onClose={() => setTeamDropdownOpen(false)}
+                  selectedTeam={selectedTeam}
+                />
+              )}
+            </div>
           </div>
           <span className="text-gray-900 font-medium text-xs sm:hidden">
-            Team V
+            {selectedTeam?.name?.split(' ')[0] || 'Team'}
           </span>
         </div>
         <div className="flex items-center gap-2 lg:gap-3 flex-1 justify-end min-w-0">

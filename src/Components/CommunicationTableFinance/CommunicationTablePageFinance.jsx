@@ -9,11 +9,12 @@ import ShimmerLoaderFinance from "./ShimmerLoaderFinance"
 import { fetchAssistantManagers, fetchAgentsUnderAssistantManager, fetchCountOfPaymentsAndPipelines, getDateRanges } from "../../services/apiService"
 import { transformFinanceData, calculateFinanceSummaryData } from "../../utils/financeDataTransformers"
 
-const CommunicationTableFinance = ({ 
-  data = null, 
-  summaryData = null, 
+const CommunicationTableFinance = ({
+  data = null,
+  summaryData = null,
   selectedPeriod = "Last Week",
-  onDataLoad = null 
+  selectedTeam = null,
+  onDataLoad = null
 }) => {
   const [apiData, setApiData] = useState(data)
   const [apiSummaryData, setApiSummaryData] = useState(summaryData)
@@ -30,26 +31,12 @@ const CommunicationTableFinance = ({
   const memoizedData = useMemo(() => displayData, [displayData])
   const memoizedSummaryData = useMemo(() => displaySummaryData, [displaySummaryData])
 
-  // Fetch assistant managers on component mount
+  // Use selectedTeam to set assistantManagerId
   useEffect(() => {
-    const loadAssistantManagers = async () => {
-      try {
-        setLoading(true)
-        const response = await fetchAssistantManagers()
-        if (response.success && response.data && response.data.length > 0) {
-          // Use the first assistant manager for now
-          setAssistantManagerId(response.data[0].id)
-        }
-      } catch (err) {
-        console.error('Error loading assistant managers:', err)
-        setError('Failed to load assistant managers')
-      } finally {
-        setLoading(false)
-      }
+    if (selectedTeam && selectedTeam.id) {
+      setAssistantManagerId(selectedTeam.id)
     }
-
-    loadAssistantManagers()
-  }, [])
+  }, [selectedTeam])
 
   // Fetch agents data and payments/pipelines data when assistant manager ID is available
   useEffect(() => {

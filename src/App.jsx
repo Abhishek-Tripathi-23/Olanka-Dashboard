@@ -1,29 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import './App.css'
 import './index.css'
 
-import CommunicationTable from './Components/CommunicationTable/CommunicationTablePage'
-import HorizontalBarChart from './Components/Graph/HorizontalBarChart'
-import CommunicationTableFinance from './Components/CommunicationTableFinance/CommunicationTablePageFinance'
 import { CombinedPage } from './Components/CombinedPage'
+import LoginPage from './Components/Auth/LoginPage'
+import ProtectedRoute from './Components/Auth/ProtectedRoute'
 
 function App() {
-
-
   return (
-    <>
-     {/* <AnimationOne/> */}
-     <div className='bg-[#F0DCE3]'>
-     {/*  */}
-     {/* <CommunicationTable /> */}
-     {/* <HorizontalBarChart /> */}
-     {/* <CommunicationTableFinance /> */}
-     <CombinedPage/>
-    
-     </div>
-    </>
+    <Routes>
+      {/* Redirect root to dashboard */}
+      <Route path="/" element={<Navigate to="/dashboard" replace />} />
+
+      {/* Login route */}
+      <Route path="/login" element={<LoginPage />} />
+
+      {/* Protected dashboard route */}
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <div className='bg-[#F0DCE3] min-h-screen'>
+              <CombinedPage />
+            </div>
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Catch all route - redirect to login */}
+      <Route path="*" element={<Navigate to="/login" replace />} />
+    </Routes>
   )
 }
 
