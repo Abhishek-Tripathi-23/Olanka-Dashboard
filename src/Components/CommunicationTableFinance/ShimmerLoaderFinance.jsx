@@ -16,7 +16,7 @@ const ShimmerLoaderFinance = () => {
                   </div>
                 </div>
               </th>
-              
+
               {/* Data columns headers - 7 columns for finance */}
               {Array.from({ length: 7 }).map((_, colIndex) => (
                 <th
@@ -34,7 +34,7 @@ const ShimmerLoaderFinance = () => {
               ))}
             </tr>
           </thead>
-          
+
           {/* Table rows shimmer - matches TableRowFinance exactly */}
           <tbody>
             {Array.from({ length: 12 }).map((_, rowIndex) => (
@@ -48,7 +48,7 @@ const ShimmerLoaderFinance = () => {
                     </div>
                   </div>
                 </td>
-                
+
                 {/* Data cells - 7 columns for finance */}
                 {Array.from({ length: 7 }).map((_, colIndex) => (
                   <td key={colIndex} className={`w-5 2xl:w-96 2xl:h-36 ${colIndex < 6 ? 'border-r border-gray-200' : ''} relative text-xs sm:text-sm lg:text-base xl:text-lg 2xl:text-xl h-12`}>
@@ -70,7 +70,7 @@ const ShimmerLoaderFinance = () => {
                 ))}
               </tr>
             ))}
-            
+
             {/* Summary row shimmer - matches SummaryRowFinance exactly */}
             <tr className="bg-gray-100 font-bold border-t-2 border-gray-300">
               <td className="w-10 !w-10 2xl:w-60 p-2 sm:p-3 md:p-1.25 lg:p-4 xl:p-0 2xl:p-5 border-r border-gray-800 xl:w-32">
@@ -82,7 +82,7 @@ const ShimmerLoaderFinance = () => {
                   </div>
                 </div>
               </td>
-              
+
               {Array.from({ length: 7 }).map((_, colIndex) => (
                 <td key={colIndex} className={`w-5 2xl:w-96 2xl:h-36 ${colIndex < 6 ? 'border-r border-gray-200' : ''} relative text-xs sm:text-sm lg:text-base xl:text-lg 2xl:text-xl h-12`}>
                   <div className="grid grid-cols-2 gap-0 text-center text-xs sm:text-sm lg:text-base xl:text-lg 2xl:text-xl h-full xl:w-20 lg:w-full 2xl:w-full">

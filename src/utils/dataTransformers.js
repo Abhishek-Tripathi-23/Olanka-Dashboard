@@ -9,7 +9,8 @@ export const transformAgentData = (apiAgentData) => {
     lastSaleDate: agent.last_sale_date,
     badge: {
       color: getBadgeColor(agent),
-      number: getBadgeNumber(agent)
+      number: getDaysSinceLastSale(agent.last_sale_date) ?? '—',
+      daysSinceLastSale: getDaysSinceLastSale(agent.last_sale_date)
     },
     // Calls data: [company_attempts, company_success, agent_attempts, agent_success]
     calls: [
@@ -122,33 +123,48 @@ export const calculateSummaryData = (agentData) => {
   return summary;
 };
 
-// Helper function to determine badge color based on agent performance
+// Helper function to calculate days since last sale
+export const getDaysSinceLastSale = (lastSaleDate) => {
+  if (!lastSaleDate) return null;
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Reset time to start of day
+
+  const saleDate = new Date(lastSaleDate);
+  saleDate.setHours(0, 0, 0, 0);
+
+  const diffTime = today - saleDate;
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+  return diffDays;
+};
+
+// Helper function to determine badge color based on days since last sale
 const getBadgeColor = (agent) => {
-  // Calculate total activity score
-  const totalActivity = (agent.company_call_attempts || 0) + 
-                       (agent.company_whatsapp_attempts || 0) + 
-                       (agent.company_email_attempts || 0) + 
-                       (agent.pkg_sends_total || 0) + 
-                       (agent.new_enquiries_total || 0) +
-                       (agent.company_live_enquiry_count || 0) +
-                       (agent.paid_total || 0);
-  
-  // Adjust thresholds based on actual data patterns
-  if (totalActivity >= 30) return 'red';
-  if (totalActivity >= 15) return 'yellow';
-  return 'green';
+  const daysSinceLastSale = getDaysSinceLastSale(agent.last_sale_date);
+
+  // If no last_sale_date or invalid, return red (most inactive)
+  if (daysSinceLastSale === null || daysSinceLastSale < 0) return 'red';
+
+  // Color based on days since last sale:
+  // 1-7 days: Green (active)
+  // 7-14 days: Yellow (warning)
+  // More than 14 days: Red (inactive)
+  if (daysSinceLastSale >= 1 && daysSinceLastSale <= 7) return 'green';
+  if (daysSinceLastSale > 7 && daysSinceLastSale <= 14) return 'yellow';
+  return 'red'; // More than 14 days or 0 days (same day counts as active but edge case)
 };
 
 // Helper function to determine badge number
 const getBadgeNumber = (agent) => {
-  const totalActivity = (agent.company_call_attempts || 0) + 
-                       (agent.company_whatsapp_attempts || 0) + 
-                       (agent.company_email_attempts || 0) + 
-                       (agent.pkg_sends_total || 0) + 
-                       (agent.new_enquiries_total || 0) +
-                       (agent.company_live_enquiry_count || 0) +
-                       (agent.paid_total || 0);
-  
+  const totalActivity = (agent.company_call_attempts || 0) +
+    (agent.company_whatsapp_attempts || 0) +
+    (agent.company_email_attempts || 0) +
+    (agent.pkg_sends_total || 0) +
+    (agent.new_enquiries_total || 0) +
+    (agent.company_live_enquiry_count || 0) +
+    (agent.paid_total || 0);
+
   // Adjust thresholds based on actual data patterns
   if (totalActivity >= 50) return 5;
   if (totalActivity >= 30) return 4;

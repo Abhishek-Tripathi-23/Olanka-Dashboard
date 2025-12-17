@@ -57,6 +57,18 @@ export const formatDateForAPI = (date) => {
 // Helper function to get date ranges based on selected period
 export const getDateRanges = (selectedPeriod) => {
   const today = new Date();
+
+  // Special case for "Last 24 Hours" - use today's date for both from and to
+  if (selectedPeriod === 'Last 24 Hours') {
+    const todayFormatted = formatDateForAPI(today);
+    return {
+      activityFromDate: todayFormatted,
+      activityToDate: todayFormatted,
+      stateFromDate: todayFormatted,
+      stateToDate: todayFormatted
+    };
+  }
+
   const ranges = {
     'Last 2 Days': 2,
     'Last Week': 7,
@@ -64,11 +76,11 @@ export const getDateRanges = (selectedPeriod) => {
     'Last 6 Months': 180,
     '1 Year': 365
   };
-  
+
   const days = ranges[selectedPeriod] || 7;
   const fromDate = new Date(today);
   fromDate.setDate(today.getDate() - days);
-  
+
   return {
     activityFromDate: formatDateForAPI(fromDate),
     activityToDate: formatDateForAPI(today),

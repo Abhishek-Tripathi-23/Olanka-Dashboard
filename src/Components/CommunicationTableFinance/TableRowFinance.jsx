@@ -7,8 +7,8 @@ import StatisticCellFinance from "./StatisticCellFinance"
 const TableRowFinance = React.memo(({ data }) => {
   return (
     <tr className="border-b border-gray-200 hover:bg-gray-50 transition-colors">
-      <td className="w-10 !w-10 2xl:w-60 p-2 sm:p-3 md:p-1.25 lg:p-4 xl:p-0 2xl:p-5  border-r border-gray-800 xl:w-32  " >
-        <div className="w-12 h-12 xl:h-10 2xl:w-40 flex justify-center items-center">
+      <td className="p-2 sm:p-3 md:p-1.25 lg:p-4 xl:p-2 2xl:p-5 border-r border-gray-800">
+        <div className="flex justify-center items-center flex-shrink-0">
           <AvatarWithBadge name={data.name} badge={data.badge} image={data.image} />
         </div>
       </td>

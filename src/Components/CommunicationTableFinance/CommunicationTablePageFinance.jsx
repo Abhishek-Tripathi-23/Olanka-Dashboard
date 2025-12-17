@@ -46,9 +46,9 @@ const CommunicationTableFinance = ({
       try {
         setLoading(true)
         setError(null)
-        
+
         const dateRanges = getDateRanges(selectedPeriod)
-        
+
         // Fetch both agents data and payments/pipelines data in parallel
         const [agentsResponse, paymentsResponse] = await Promise.all([
           fetchAgentsUnderAssistantManager(
@@ -64,12 +64,12 @@ const CommunicationTableFinance = ({
         if (agentsResponse.success && agentsResponse.data) {
           const transformedData = transformFinanceData(agentsResponse.data, paymentsResponse.data)
           const summaryData = calculateFinanceSummaryData(transformedData, paymentsResponse.data)
-          
+
           setApiData(transformedData)
           setApiSummaryData(summaryData)
           setPaymentsPipelinesData(paymentsResponse.data)
           setDataLoaded(true) // Mark data as loaded
-          
+
           // Notify parent component if callback provided
           if (onDataLoad) {
             onDataLoad(transformedData, summaryData)
@@ -98,7 +98,7 @@ const CommunicationTableFinance = ({
   // Error state
   if (error) {
     return (
-      <div className="bg-white w-full md:max-w-[690px] xl:max-w-[555px] 2xl:max-w-[1400px] px-4 py-2 xl:py-2 md:min-h-[830px] md:max-h-[830px] lg:min-h-[1100px] lg:max-h-[1110px] xl:min-h-[753px] xl:max-h-[755px] 2xl:max-h-[1960px] rounded-2xl">
+      <div className="bg-white w-full md:max-w-[690px] xl:max-w-[555px] 2xl:max-w-[1400px] px-4 py-2 xl:py-2 rounded-2xl">
         <div className="w-full border border-black rounded-2xl mt-2 overflow-x-auto">
           <div className="flex items-center justify-center h-64">
             <div className="text-center">
@@ -113,7 +113,7 @@ const CommunicationTableFinance = ({
   }
 
   return (
-    <div className="bg-white w-full md:max-w-[690px] xl:max-w-[555px] 2xl:max-w-[1400px]  px-4 py-2 xl:py-2 md:min-h-[830px] md:max-h-[830px] lg:min-h-[1100px] lg:max-h-[1110px] xl:min-h-[753px] xl:max-h-[755px] 2xl:max-h-[1960px] rounded-2xl">
+    <div className="bg-white w-full md:max-w-[690px] xl:max-w-[555px] 2xl:max-w-[1400px] px-4 py-2 xl:py-2 rounded-2xl">
       <div className="w-full border border-black rounded-2xl mt-2 overflow-x-auto">
         <table className="bg-white rounded-2xl shadow-lg  w-full min-w-[480px] 2xl:h-96" role="table" aria-label="Communication metrics table">
           <TableHeaderFinance />
@@ -125,7 +125,7 @@ const CommunicationTableFinance = ({
           </tbody>
         </table>
       </div>
-      
+
     </div>
   )
 }

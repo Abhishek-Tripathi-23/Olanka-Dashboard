@@ -1,4 +1,5 @@
 // Data transformation utilities for mapping API responses to Finance UI components
+import { getDaysSinceLastSale } from './dataTransformers';
 
 // Transform agent data from API to Finance UI format
 export const transformFinanceData = (apiAgentData, paymentsPipelinesData = null) => {
@@ -9,7 +10,8 @@ export const transformFinanceData = (apiAgentData, paymentsPipelinesData = null)
     lastSaleDate: agent.last_sale_date,
     badge: {
       color: getBadgeColor(agent),
-      number: getBadgeNumber(agent)
+      number: getDaysSinceLastSale(agent.last_sale_date) ?? '—',
+      daysSinceLastSale: getDaysSinceLastSale(agent.last_sale_date)
     },
     // Inquiries data: [company_live_enquiry_count, agent_live_enquiry_count, company_live_enquiries_engage, agent_live_enquiries_engage]
     inquiries: [
@@ -150,29 +152,30 @@ export const calculateFinanceSummaryData = (agentData, paymentsPipelinesData = n
   return summary;
 };
 
-// Helper function to determine badge color based on agent performance
+// Helper function to determine badge color based on days since last sale
 const getBadgeColor = (agent) => {
-  // Calculate total activity score for finance metrics
-  const totalActivity = (agent.company_live_enquiry_count || 0) + 
-                       (agent.follow_up_total || 0) + 
-                       (agent.highly_engaged_total || 0) + 
-                       (agent.company_pipeline_count || 0) + 
-                       (agent.paid_total || 0);
-  
-  // Adjust thresholds based on finance data patterns
-  if (totalActivity >= 25) return 'red';
-  if (totalActivity >= 10) return 'yellow';
-  return 'green';
+  const daysSinceLastSale = getDaysSinceLastSale(agent.last_sale_date);
+
+  // If no last_sale_date or invalid, return red (most inactive)
+  if (daysSinceLastSale === null || daysSinceLastSale < 0) return 'red';
+
+  // Color based on days since last sale:
+  // 1-7 days: Green (active)
+  // 7-14 days: Yellow (warning)
+  // More than 14 days: Red (inactive)
+  if (daysSinceLastSale >= 1 && daysSinceLastSale <= 7) return 'green';
+  if (daysSinceLastSale > 7 && daysSinceLastSale <= 14) return 'yellow';
+  return 'red'; // More than 14 days or 0 days
 };
 
 // Helper function to determine badge number
 const getBadgeNumber = (agent) => {
-  const totalActivity = (agent.company_live_enquiry_count || 0) + 
-                       (agent.follow_up_total || 0) + 
-                       (agent.highly_engaged_total || 0) + 
-                       (agent.company_pipeline_count || 0) + 
-                       (agent.paid_total || 0);
-  
+  const totalActivity = (agent.company_live_enquiry_count || 0) +
+    (agent.follow_up_total || 0) +
+    (agent.highly_engaged_total || 0) +
+    (agent.company_pipeline_count || 0) +
+    (agent.paid_total || 0);
+
   // Adjust thresholds based on finance data patterns
   if (totalActivity >= 50) return 5;
   if (totalActivity >= 25) return 4;

@@ -22,7 +22,7 @@ import { fetchAssistantManagers } from "../services/apiService";
 
 function SortableItem({ id, children, className = "" }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id });
-  
+
   const style = {
     transform: CSS.Transform.toString(transform),
     transition: isDragging ? 'none' : transition, // Only change: disable transition during drag
@@ -99,11 +99,10 @@ const TeamDropdown = ({ teams, onSelect, onClose, selectedTeam }) => {
       {teams.map((team) => (
         <div
           key={team.id}
-          className={`px-4 py-2 text-sm cursor-pointer first:rounded-t-md last:rounded-b-md ${
-            selectedTeam?.id === team.id
-              ? "bg-teal-50 text-teal-700 font-medium"
-              : "text-gray-700 hover:bg-gray-100"
-          }`}
+          className={`px-4 py-2 text-sm cursor-pointer first:rounded-t-md last:rounded-b-md ${selectedTeam?.id === team.id
+            ? "bg-teal-50 text-teal-700 font-medium"
+            : "text-gray-700 hover:bg-gray-100"
+            }`}
           onClick={() => onSelect(team)}
         >
           {team.name}
@@ -182,10 +181,10 @@ export const CombinedPage = () => {
   }, []);
 
   const sensors = useSensors(
-    useSensor(PointerSensor, { 
-      activationConstraint: { 
+    useSensor(PointerSensor, {
+      activationConstraint: {
         distance: 5, // Slightly increased from 3 to prevent accidental drags
-      } 
+      }
     })
   );
 
@@ -271,8 +270,11 @@ export const CombinedPage = () => {
               )}
             </div>
           </div>
-          <span className="text-gray-900 font-medium text-xs sm:hidden">
-            {selectedTeam?.name?.split(' ')[0] || 'Team'}
+          <span
+            className="text-gray-900 font-medium text-xs sm:hidden cursor-pointer"
+            onClick={() => setTeamDropdownOpen(!teamDropdownOpen)}
+          >
+            {selectedTeam?.name?.split(' ')[0] || 'Team'} ▼
           </span>
         </div>
         <div className="flex items-center gap-2 lg:gap-3 flex-1 justify-end min-w-0">
@@ -287,7 +289,7 @@ export const CombinedPage = () => {
       </div>
 
       {/* Draggable Components Section - KEPT YOUR ORIGINAL LAYOUT */}
-      <div className="flex flex-col  gap-4 md:grid md:grid-flow-col md:auto-cols-max md:gap-10 2xl:justify-around overflow-x-auto p-6 bg-[#F0DCE3] w-full min-h-screen">
+      <div className="flex flex-col gap-4 md:grid md:grid-flow-col md:auto-cols-max md:gap-10 2xl:justify-around overflow-x-auto p-6 bg-[#F0DCE3] w-full">
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}
@@ -307,7 +309,7 @@ export const CombinedPage = () => {
 
           <DragOverlay>
             {activeId ? (
-              <div 
+              <div
                 className="cursor-grabbing pointer-events-none opacity-80"
                 style={{
                   transform: 'rotate(1deg)', // Subtle rotation for visual feedback

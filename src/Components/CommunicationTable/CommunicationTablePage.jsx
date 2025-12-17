@@ -46,7 +46,7 @@ const CommunicationTable = ({
       try {
         setLoading(true)
         setError(null)
-        
+
         const dateRanges = getDateRanges(selectedPeriod)
         const response = await fetchAgentsUnderAssistantManager(
           assistantManagerId,
@@ -59,11 +59,11 @@ const CommunicationTable = ({
         if (response.success && response.data) {
           const transformedData = transformAgentData(response.data)
           const summaryData = calculateSummaryData(transformedData)
-          
+
           setApiData(transformedData)
           setApiSummaryData(summaryData)
           setDataLoaded(true) // Mark data as loaded
-          
+
           // Notify parent component if callback provided
           if (onDataLoad) {
             onDataLoad(transformedData, summaryData)
@@ -92,7 +92,7 @@ const CommunicationTable = ({
   // Error state
   if (error) {
     return (
-      <div className="bg-white w-full md:max-w-[690px] md:min-h-[830px] md:max-h-[830px] xl:max-w-[590px] 2xl:max-w-[1400px] px-4 py-2 lg:min-h-[1100px] lg:max-h-[1110px] xl:min-h-[753px] xl:max-h-[755px] 2xl:max-h-[1970px] rounded-2xl">
+      <div className="bg-white w-full md:max-w-[690px] xl:max-w-[590px] 2xl:max-w-[1400px] px-4 py-2 rounded-2xl">
         <div className="w-full border border-black rounded-2xl mt-2 overflow-x-auto">
           <div className="flex items-center justify-center h-64">
             <div className="text-center">
@@ -107,7 +107,7 @@ const CommunicationTable = ({
   }
 
   return (
-    <div className="bg-white w-full md:max-w-[690px] md:min-h-[830px]  md:max-h-[830px]  xl:max-w-[590px] 2xl:max-w-[1400px]  px-4 py-2 lg:min-h-[1100px] lg:max-h-[1110px] xl:min-h-[753px] xl:max-h-[755px] 2xl:max-h-[1970px] rounded-2xl">
+    <div className="bg-white w-full md:max-w-[690px] xl:max-w-[590px] 2xl:max-w-[1400px] px-4 py-2 rounded-2xl">
       <div className="w-full border border-black rounded-2xl mt-2 overflow-x-auto">
         <table className="bg-white rounded-2xl shadow-lg w-full 2xl:min-w-[680px]" role="table" aria-label="Communication metrics table">
           <TableHeader />
@@ -119,8 +119,8 @@ const CommunicationTable = ({
           </tbody>
         </table>
       </div>
-      
-      
+
+
     </div>
   )
 }
