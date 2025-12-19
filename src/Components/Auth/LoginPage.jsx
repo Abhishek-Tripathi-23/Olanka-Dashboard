@@ -95,11 +95,6 @@ const LoginPage = () => {
               </button>
             </div>
 
-            <div className="text-center">
-              <p className="text-xs text-gray-500 bg-gray-50 rounded-lg py-2 px-3">
-                Demo: olankaadmin / olankaadmin
-              </p>
-            </div>
           </form>
         </div>
       </div>
