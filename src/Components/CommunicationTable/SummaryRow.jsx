@@ -37,12 +37,18 @@ const SummaryRow = React.memo(({ data }) => {
                   {/* Top-left indicator */}
                   <div className="text-center font-semibold text-xs sm:text-sm lg:text-base h-full flex justify-center items-center relative">
                     {column.key === "pkgSends" && data.summaryIndicators.pkgSends && (
-                      <span className="bg-blue-500 text-white w-6 h-6 sm:w-7 sm:h-7 xl:h-6 xl:w-6 2xl:h-16 2xl:w-16 2xl:text-4xl rounded-full flex items-center justify-center text-xs sm:text-sm xl:text-xs font-bold">
+                      <span
+                        title="pkg_sends_total (Total)"
+                        className="bg-blue-500 text-white w-6 h-6 sm:w-7 sm:h-7 xl:h-6 xl:w-6 2xl:h-16 2xl:w-16 2xl:text-4xl rounded-full flex items-center justify-center text-xs sm:text-sm xl:text-xs font-bold cursor-pointer"
+                      >
                         {data.summaryIndicators.pkgSends.top}
                       </span>
                     )}
                     {column.key === "new" && data.summaryIndicators.new && (
-                      <span className="bg-black text-white w-6 h-6 sm:w-7 sm:h-7 xl:h-6 xl:w-6 2xl:h-16 2xl:w-16 2xl:text-4xl rounded-full flex items-center justify-center text-xs sm:text-sm xl:text-xs font-bold">
+                      <span
+                        title="new_enquiries_total (Total)"
+                        className="bg-black text-white w-6 h-6 sm:w-7 sm:h-7 xl:h-6 xl:w-6 2xl:h-16 2xl:w-16 2xl:text-4xl rounded-full flex items-center justify-center text-xs sm:text-sm xl:text-xs font-bold cursor-pointer"
+                      >
                         {data.summaryIndicators.new.top}
                       </span>
                     )}
@@ -56,12 +62,18 @@ const SummaryRow = React.memo(({ data }) => {
                   {/* Bottom-right indicator */}
                   <div className="text-center text-gray-600 text-xs sm:text-sm lg:text-base h-full flex justify-center items-center relative">
                     {column.key === "pkgSends" && data.summaryIndicators.pkgSends && (
-                      <span className="bg-blue-500 text-white w-6 h-6 sm:w-7 sm:h-7 xl:h-6 xl:w-6 2xl:h-16 2xl:w-16 2xl:text-4xl rounded-full flex items-center justify-center text-xs sm:text-sm xl:text-xs font-bold">
+                      <span
+                        title="company_whatsapp_attempts (Total)"
+                        className="bg-blue-500 text-white w-6 h-6 sm:w-7 sm:h-7 xl:h-6 xl:w-6 2xl:h-16 2xl:w-16 2xl:text-4xl rounded-full flex items-center justify-center text-xs sm:text-sm xl:text-xs font-bold cursor-pointer"
+                      >
                         {data.summaryIndicators.pkgSends.bottom}
                       </span>
                     )}
                     {column.key === "new" && data.summaryIndicators.new && (
-                      <span className="bg-black text-white w-6 h-6 sm:w-7 sm:h-7 xl:h-6 xl:w-6 2xl:h-16 2xl:w-16 2xl:text-4xl rounded-full flex items-center justify-center text-xs sm:text-sm xl:text-xs font-bold">
+                      <span
+                        title="company_email_attempts (Total)"
+                        className="bg-black text-white w-6 h-6 sm:w-7 sm:h-7 xl:h-6 xl:w-6 2xl:h-16 2xl:w-16 2xl:text-4xl rounded-full flex items-center justify-center text-xs sm:text-sm xl:text-xs font-bold cursor-pointer"
+                      >
                         {data.summaryIndicators.new.bottom}
                       </span>
                     )}

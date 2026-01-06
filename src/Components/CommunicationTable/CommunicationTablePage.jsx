@@ -14,6 +14,7 @@ const CommunicationTable = ({
   data = null,
   summaryData = null,
   selectedPeriod = "Last Week",
+  selectedRightPeriod = "This month",
   selectedTeam = null,
   onDataLoad = null
 }) => {
@@ -82,7 +83,7 @@ const CommunicationTable = ({
     }
 
     loadAgentsData()
-  }, [assistantManagerId, selectedPeriod, onDataLoad])
+  }, [assistantManagerId, selectedPeriod, selectedRightPeriod, onDataLoad])
 
   // Loading state with shimmer effect
   if (loading) {

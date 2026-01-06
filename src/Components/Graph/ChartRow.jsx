@@ -3,7 +3,7 @@ import React from 'react';
 export default function ChartRow({ date, payments, pipelines, maxValue }) {
   const paymentsWidth = (payments / maxValue) * 100;
   const pipelinesWidth = (pipelines / maxValue) * 100;
-  
+
   // Increase width for larger screens
   const getBarWidth = (percentage) => {
     if (window.innerWidth >= 1536) { // 2xl breakpoint
@@ -24,12 +24,14 @@ export default function ChartRow({ date, payments, pipelines, maxValue }) {
         <div className="relative md:py-[1px] lg:py-1.75 xl:py-[2px] 2xl:py-3.75">
           {/* Payment bar */}
           <div
-            className="h-3 xl:h-1.75 2xl:h-4 bg-blue-400 rounded-sm mb-0.5"
+            title={`Payments: ${payments}`}
+            className="h-3 xl:h-1.75 2xl:h-4 bg-blue-400 rounded-sm mb-0.5 cursor-pointer"
             style={{ width: `${getBarWidth(paymentsWidth)}%` }}
           />
           {/* Pipeline bar */}
           <div
-            className="h-3 xl:h-1.75 2xl:h-4 bg-black rounded-sm"
+            title={`Pipelines: ${pipelines}`}
+            className="h-3 xl:h-1.75 2xl:h-4 bg-black rounded-sm cursor-pointer"
             style={{ width: `${getBarWidth(pipelinesWidth)}%` }}
           />
         </div>

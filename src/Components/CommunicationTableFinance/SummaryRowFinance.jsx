@@ -53,17 +53,26 @@ const SummaryRowFinance = React.memo(({ data }) => {
                   {/* Top-left indicator */}
                   <div className="text-center font-semibold text-xs sm:text-sm lg:text-base h-full flex justify-center items-center relative">
                     {column.key === "followUp" && data.summaryIndicators.followUp && (
-                      <span className="bg-black text-white w-6 h-6 sm:w-7 sm:h-7 xl:h-6 xl:w-6 xl:text-xs 2xl:h-16 2xl:w-16 2xl:text-4xl rounded-full flex items-center justify-center text-xs sm:text-sm font-bold">
+                      <span
+                        title="follow_up_total (Total)"
+                        className="bg-black text-white w-6 h-6 sm:w-7 sm:h-7 xl:h-6 xl:w-6 xl:text-xs 2xl:h-16 2xl:w-16 2xl:text-4xl rounded-full flex items-center justify-center text-xs sm:text-sm font-bold cursor-pointer"
+                      >
                         {data.summaryIndicators.followUp.top}
                       </span>
                     )}
                     {column.key === "he" && data.summaryIndicators.he && (
-                      <span className="bg-blue-500 text-white w-6 h-6 sm:w-7 sm:h-7 xl:h-6 xl:w-6 xl:text-xs 2xl:h-16 2xl:w-16 2xl:text-4xl rounded-full flex items-center justify-center text-xs sm:text-sm font-bold">
+                      <span
+                        title="highly_engaged_total (Total)"
+                        className="bg-blue-500 text-white w-6 h-6 sm:w-7 sm:h-7 xl:h-6 xl:w-6 xl:text-xs 2xl:h-16 2xl:w-16 2xl:text-4xl rounded-full flex items-center justify-center text-xs sm:text-sm font-bold cursor-pointer"
+                      >
                         {data.summaryIndicators.he.top}
                       </span>
                     )}
                     {column.key === "paid" && data.summaryIndicators.paid && (
-                      <span className="bg-green-500 text-white w-6 h-6 sm:w-7 sm:h-7 xl:h-6 xl:w-6 xl:text-xs 2xl:h-16 2xl:w-16 2xl:text-4xl rounded-full flex items-center justify-center text-xs sm:text-sm  font-bold">
+                      <span
+                        title="paid_total (Total)"
+                        className="bg-green-500 text-white w-6 h-6 sm:w-7 sm:h-7 xl:h-6 xl:w-6 xl:text-xs 2xl:h-16 2xl:w-16 2xl:text-4xl rounded-full flex items-center justify-center text-xs sm:text-sm  font-bold cursor-pointer"
+                      >
                         {data.summaryIndicators.paid.top}
                       </span>
                     )}
@@ -77,17 +86,26 @@ const SummaryRowFinance = React.memo(({ data }) => {
                   {/* Bottom-right indicator */}
                   <div className="text-center text-black text-xs sm:text-sm lg:text-base h-full flex justify-center items-center relative">
                     {column.key === "followUp" && data.summaryIndicators.followUp && (
-                      <span className="bg-black text-white  w-6 h-6 sm:w-7 sm:h-7 xl:h-6 xl:w-6 xl:text-xs 2xl:h-16 2xl:w-16 2xl:text-4xl rounded-full flex items-center justify-center text-xs sm:text-sm font-bold">
+                      <span
+                        title="follow_up_agent (Total)"
+                        className="bg-black text-white  w-6 h-6 sm:w-7 sm:h-7 xl:h-6 xl:w-6 xl:text-xs 2xl:h-16 2xl:w-16 2xl:text-4xl rounded-full flex items-center justify-center text-xs sm:text-sm font-bold cursor-pointer"
+                      >
                         {data.summaryIndicators.followUp.bottom}
                       </span>
                     )}
                     {column.key === "he" && data.summaryIndicators.he && (
-                      <span className="bg-blue-500 text-white  w-6 h-6 sm:w-7 sm:h-7 xl:h-6 xl:w-6 xl:text-xs 2xl:h-16 2xl:w-16 2xl:text-4xl rounded-full flex items-center justify-center text-xs sm:text-sm font-bold">
+                      <span
+                        title="highly_engaged_agent (Total)"
+                        className="bg-blue-500 text-white  w-6 h-6 sm:w-7 sm:h-7 xl:h-6 xl:w-6 xl:text-xs 2xl:h-16 2xl:w-16 2xl:text-4xl rounded-full flex items-center justify-center text-xs sm:text-sm font-bold cursor-pointer"
+                      >
                         {data.summaryIndicators.he.bottom}
                       </span>
                     )}
                     {column.key === "paid" && data.summaryIndicators.paid && (
-                      <span className="bg-green-500 text-white  w-6 h-6 sm:w-7 sm:h-7 xl:h-6 xl:w-6 xl:text-xs 2xl:h-16 2xl:w-16 2xl:text-4xl rounded-full flex items-center justify-center text-xs sm:text-sm  font-bold">
+                      <span
+                        title="paid_agent (Total)"
+                        className="bg-green-500 text-white  w-6 h-6 sm:w-7 sm:h-7 xl:h-6 xl:w-6 xl:text-xs 2xl:h-16 2xl:w-16 2xl:text-4xl rounded-full flex items-center justify-center text-xs sm:text-sm  font-bold cursor-pointer"
+                      >
                         {data.summaryIndicators.paid.bottom}
                       </span>
                     )}

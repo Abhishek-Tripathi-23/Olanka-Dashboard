@@ -1,7 +1,7 @@
 import React from 'react'
 import ChartRow from "./ChartRow"
 
-export default function ChartGrid({ data }) {
+export default function ChartGrid({ data, maxValue = 5 }) {
   return (
     <div className="relative ">
       {/* Vertical axis line - separates dates from chart area */}
@@ -22,7 +22,7 @@ export default function ChartGrid({ data }) {
             date={item.date}
             payments={item.payments}
             pipelines={item.pipelines}
-            maxValue={5}
+            maxValue={maxValue}
           />
         ))}
       </div>
@@ -32,11 +32,14 @@ export default function ChartGrid({ data }) {
 
       {/* X-axis labels positioned at grid intersections */}
       <div className="flex ml-16 text-sm text-gray-600 relative">
-        {[0, 1, 2, 3, 4].map((num) => (
-          <div key={num} className="flex-1 relative">
-            <span className="absolute left-0 top-1 text-xs">{num}</span>
-          </div>
-        ))}
+        {[0, 1, 2, 3, 4].map((num) => {
+          const labelValue = Math.round((maxValue / 4) * num)
+          return (
+            <div key={num} className="flex-1 relative">
+              <span className="absolute left-0 top-1 text-xs">{labelValue}</span>
+            </div>
+          )
+        })}
       </div>
     </div>
   )

@@ -58,14 +58,63 @@ export const formatDateForAPI = (date) => {
 export const getDateRanges = (selectedPeriod) => {
   const today = new Date();
 
-  // Special case for "Last 24 Hours" - use today's date for both from and to
-  if (selectedPeriod === 'Last 24 Hours') {
+  // Special case for "Today" - use today's date for both from and to
+  if (selectedPeriod === 'Today' || selectedPeriod === 'Last 24 Hours') {
     const todayFormatted = formatDateForAPI(today);
     return {
       activityFromDate: todayFormatted,
       activityToDate: todayFormatted,
       stateFromDate: todayFormatted,
       stateToDate: todayFormatted
+    };
+  }
+
+  // Special case for "Yesterday"
+  if (selectedPeriod === 'Yesterday') {
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+    const yesterdayFormatted = formatDateForAPI(yesterday);
+    return {
+      activityFromDate: yesterdayFormatted,
+      activityToDate: yesterdayFormatted,
+      stateFromDate: yesterdayFormatted,
+      stateToDate: yesterdayFormatted
+    };
+  }
+
+  // Special case for "This week" - start of current week (Monday) to today
+  if (selectedPeriod === 'This week') {
+    const startOfWeek = new Date(today);
+    const dayOfWeek = today.getDay();
+    const diff = dayOfWeek === 0 ? 6 : dayOfWeek - 1; // Adjust for Monday start
+    startOfWeek.setDate(today.getDate() - diff);
+    return {
+      activityFromDate: formatDateForAPI(startOfWeek),
+      activityToDate: formatDateForAPI(today),
+      stateFromDate: formatDateForAPI(startOfWeek),
+      stateToDate: formatDateForAPI(today)
+    };
+  }
+
+  // Special case for "This month" - start of current month to today
+  if (selectedPeriod === 'This month') {
+    const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    return {
+      activityFromDate: formatDateForAPI(startOfMonth),
+      activityToDate: formatDateForAPI(today),
+      stateFromDate: formatDateForAPI(startOfMonth),
+      stateToDate: formatDateForAPI(today)
+    };
+  }
+
+  // Special case for "This year" - start of current year to today
+  if (selectedPeriod === 'This year') {
+    const startOfYear = new Date(today.getFullYear(), 0, 1);
+    return {
+      activityFromDate: formatDateForAPI(startOfYear),
+      activityToDate: formatDateForAPI(today),
+      stateFromDate: formatDateForAPI(startOfYear),
+      stateToDate: formatDateForAPI(today)
     };
   }
 
@@ -88,3 +137,4 @@ export const getDateRanges = (selectedPeriod) => {
     stateToDate: formatDateForAPI(today)
   };
 };
+

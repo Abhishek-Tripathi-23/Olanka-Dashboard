@@ -41,6 +41,8 @@ function SortableItem({ id, children, className = "" }) {
 // Dropdown component
 const TimePeriodDropdown = ({ onSelect, onClose }) => {
   const options = [
+    "Today",
+    "Yesterday",
     "Last 2 Days",
     "Last Week",
     "Last Month",
@@ -112,6 +114,47 @@ const TeamDropdown = ({ teams, onSelect, onClose, selectedTeam }) => {
   );
 };
 
+// Right Filter Dropdown component
+const RightFilterDropdown = ({ onSelect, onClose, selectedPeriod }) => {
+  const options = [
+    "Today",
+    "This week",
+    "This month",
+    "This year",
+  ];
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        onClose();
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [onClose]);
+
+  return (
+    <div
+      ref={dropdownRef}
+      className="absolute top-full right-0 mt-1 w-36 bg-white shadow-lg rounded-md border border-gray-200 z-50"
+    >
+      {options.map((option) => (
+        <div
+          key={option}
+          className={`px-4 py-2 text-sm cursor-pointer first:rounded-t-md last:rounded-b-md ${selectedPeriod === option
+            ? "bg-teal-50 text-teal-700 font-medium"
+            : "text-gray-700 hover:bg-gray-100"
+            }`}
+          onClick={() => onSelect(option)}
+        >
+          {option}
+        </div>
+      ))}
+    </div>
+  );
+};
+
 export const CombinedPage = () => {
   const [componentOrder, setComponentOrder] = useState([
     "comm-table",
@@ -120,7 +163,9 @@ export const CombinedPage = () => {
   ]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [teamDropdownOpen, setTeamDropdownOpen] = useState(false);
-  const [selectedPeriod, setSelectedPeriod] = useState("Last 24 Hours");
+  const [rightFilterOpen, setRightFilterOpen] = useState(false);
+  const [selectedPeriod, setSelectedPeriod] = useState("Today");
+  const [selectedRightPeriod, setSelectedRightPeriod] = useState("This month");
   const [assistantManagers, setAssistantManagers] = useState([]);
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [activeId, setActiveId] = useState(null);
@@ -131,9 +176,9 @@ export const CombinedPage = () => {
   });
 
   const components = {
-    "comm-table": <CommunicationTable selectedPeriod={selectedPeriod} selectedTeam={selectedTeam} />,
-    "bar-chart": <HorizontalBarChart selectedTeam={selectedTeam} />,
-    "finance-table": <CommunicationTableFinance selectedPeriod={selectedPeriod} selectedTeam={selectedTeam} />,
+    "comm-table": <CommunicationTable selectedPeriod={selectedPeriod} selectedRightPeriod={selectedRightPeriod} selectedTeam={selectedTeam} />,
+    "bar-chart": <HorizontalBarChart selectedTeam={selectedTeam} selectedRightPeriod={selectedRightPeriod} />,
+    "finance-table": <CommunicationTableFinance selectedPeriod={selectedPeriod} selectedRightPeriod={selectedRightPeriod} selectedTeam={selectedTeam} />,
   };
 
   // Fetch assistant managers on component mount
@@ -277,14 +322,33 @@ export const CombinedPage = () => {
             {selectedTeam?.name?.split(' ')[0] || 'Team'} ▼
           </span>
         </div>
-        <div className="flex items-center gap-2 lg:gap-3 flex-1 justify-end min-w-0">
-          <span className="text-gray-900 font-medium text-xs lg:text-base hidden sm:inline">
-            This Month
+        <div className="flex items-center gap-2 lg:gap-3 flex-1 justify-end min-w-0 relative">
+          <span
+            className="text-gray-900 font-medium text-xs lg:text-base hidden sm:inline cursor-pointer hover:text-teal-600 transition-colors"
+            onClick={() => setRightFilterOpen(!rightFilterOpen)}
+          >
+            {selectedRightPeriod}
           </span>
-          <span className="text-gray-900 font-medium text-xs sm:hidden">
-            Month
+          <span
+            className="text-gray-900 font-medium text-xs sm:hidden cursor-pointer"
+            onClick={() => setRightFilterOpen(!rightFilterOpen)}
+          >
+            {selectedRightPeriod.split(' ')[1] || selectedRightPeriod} ▼
           </span>
-          <Sliders className="w-3 h-3 lg:w-4 lg:h-4 text-gray-600 flex-shrink-0" />
+          <Sliders
+            className="w-3 h-3 lg:w-4 lg:h-4 text-gray-600 flex-shrink-0 cursor-pointer hover:text-gray-800 transition-colors"
+            onClick={() => setRightFilterOpen(!rightFilterOpen)}
+          />
+          {rightFilterOpen && (
+            <RightFilterDropdown
+              onSelect={(option) => {
+                setSelectedRightPeriod(option);
+                setRightFilterOpen(false);
+              }}
+              onClose={() => setRightFilterOpen(false)}
+              selectedPeriod={selectedRightPeriod}
+            />
+          )}
         </div>
       </div>
 

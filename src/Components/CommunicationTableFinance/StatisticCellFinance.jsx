@@ -71,7 +71,10 @@ const StatisticCellFinance = React.memo(({ data, columnKey, indicators, followUp
             {/* Top-left indicator */}
             <div className="text-center font-semibold text-xs sm:text-sm lg:text-base h-full flex justify-center items-center relative">
               {indicators[columnKey] && (
-                <span className={`${columnKey === "he" ? "bg-blue-500 xl:h-5 xl:w-5 xl:text-xs 2xl:h-16 2xl:w-16 2xl:text-4xl" : columnKey === "paid" ? "bg-green-500 xl:h-5 xl:w-5 xl:text-xs 2xl:h-16 2xl:w-16 2xl:text-4xl" : "bg-black xl:h-5 xl:w-5 xl:text-xs 2xl:h-16 2xl:w-16 2xl:text-4xl"} text-white w-6 h-6 sm:w-7 sm:h-7 xl:h-5 xl:w-5  rounded-full flex items-center justify-center text-sm xl:text-xs font-bold`}>
+                <span
+                  title={columnKey === "followUp" ? "follow_up_total" : columnKey === "he" ? "highly_engaged_total" : columnKey === "paid" ? "paid_total" : columnKey}
+                  className={`${columnKey === "he" ? "bg-blue-500 xl:h-5 xl:w-5 xl:text-xs 2xl:h-16 2xl:w-16 2xl:text-4xl" : columnKey === "paid" ? "bg-green-500 xl:h-5 xl:w-5 xl:text-xs 2xl:h-16 2xl:w-16 2xl:text-4xl" : "bg-black xl:h-5 xl:w-5 xl:text-xs 2xl:h-16 2xl:w-16 2xl:text-4xl"} text-white w-6 h-6 sm:w-7 sm:h-7 xl:h-5 xl:w-5  rounded-full flex items-center justify-center text-sm xl:text-xs font-bold cursor-pointer`}
+                >
                   {indicators[columnKey]}
                 </span>
               )}
@@ -85,17 +88,26 @@ const StatisticCellFinance = React.memo(({ data, columnKey, indicators, followUp
             {/* Bottom-right indicator */}
             <div className="text-center text-gray-600 text-xs sm:text-sm lg:text-base  h-full  flex justify-center items-center relative">
               {columnKey === "followUp" && indicators.he && (
-                <span className="bg-black text-white w-6 h-6 sm:w-7 sm:h-7 xl:h-5 xl:w-5 xl:text-xs 2xl:h-16 2xl:w-16 2xl:text-4xl rounded-full flex items-center justify-center text-sm  font-bold">
+                <span
+                  title="highly_engaged_total"
+                  className="bg-black text-white w-6 h-6 sm:w-7 sm:h-7 xl:h-5 xl:w-5 xl:text-xs 2xl:h-16 2xl:w-16 2xl:text-4xl rounded-full flex items-center justify-center text-sm  font-bold cursor-pointer"
+                >
                   {indicators.he}
                 </span>
               )}
               {columnKey === "he" && indicators.followUp && (
-                <span className="bg-blue-500 text-white w-6 h-6 sm:w-7 sm:h-7 xl:h-5 xl:w-5 xl:text-xs 2xl:h-16 2xl:w-16 2xl:text-4xl rounded-full flex items-center justify-center text-sm font-bold">
+                <span
+                  title="follow_up_total"
+                  className="bg-blue-500 text-white w-6 h-6 sm:w-7 sm:h-7 xl:h-5 xl:w-5 xl:text-xs 2xl:h-16 2xl:w-16 2xl:text-4xl rounded-full flex items-center justify-center text-sm font-bold cursor-pointer"
+                >
                   {indicators.followUp}
                 </span>
               )}
               {columnKey === "paid" && indicators.paid && (
-                <span className="bg-green-500 text-white w-6 h-6 sm:w-7 sm:h-7 xl:h-5 xl:w-5 xl:text-xs 2xl:h-16 2xl:w-16 2xl:text-4xl rounded-full flex items-center justify-center font-bold">
+                <span
+                  title="paid_agent"
+                  className="bg-green-500 text-white w-6 h-6 sm:w-7 sm:h-7 xl:h-5 xl:w-5 xl:text-xs 2xl:h-16 2xl:w-16 2xl:text-4xl rounded-full flex items-center justify-center font-bold cursor-pointer"
+                >
                   {indicators.paid}
                 </span>
               )}

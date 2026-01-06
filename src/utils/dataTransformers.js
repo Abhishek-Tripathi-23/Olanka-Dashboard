@@ -3,7 +3,7 @@
 // Transform agent data from API to UI format
 export const transformAgentData = (apiAgentData) => {
   return apiAgentData.map((agent, index) => ({
-    id: agent.user_id || index + 1,
+    id: index + 1, // Sequential numbering instead of user_id
     name: agent.first_name || 'Unknown',
     image: agent.image ? `https://b2b.olankatravels.com${agent.image}` : '/default-avatar.png',
     lastSaleDate: agent.last_sale_date,

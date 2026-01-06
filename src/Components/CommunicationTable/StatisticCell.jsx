@@ -66,7 +66,10 @@ const StatisticCell = React.memo(({ data, columnKey, indicators, pkgSendsActive,
             {/* Top-left indicator */}
             <div className="text-center font-semibold text-xs sm:text-sm lg:text-base  h-full flex justify-center items-center relative">
               {indicators[columnKey] && (
-                <span className={`${columnKey === "new" ? "bg-black" : "bg-blue-500"} text-white w-6 h-6 sm:w-6 sm:h-6 sm:text-sm xl:h-5 xl:w-5 xl:text-xs 2xl:h-16 2xl:w-16  rounded-full flex items-center justify-center text-xs  2xl:text-4xl  font-bold`}>
+                <span
+                  title={columnKey === "pkgSends" ? "pkg_sends_total" : columnKey === "new" ? "new_enquiries_total" : columnKey}
+                  className={`${columnKey === "new" ? "bg-black" : "bg-blue-500"} text-white w-6 h-6 sm:w-6 sm:h-6 sm:text-sm xl:h-5 xl:w-5 xl:text-xs 2xl:h-16 2xl:w-16  rounded-full flex items-center justify-center text-xs  2xl:text-4xl  font-bold cursor-pointer`}
+                >
                   {indicators[columnKey]}
                 </span>
               )}
@@ -80,12 +83,18 @@ const StatisticCell = React.memo(({ data, columnKey, indicators, pkgSendsActive,
             {/* Bottom-right indicator */}
             <div className="text-center text-gray-600 text-xs sm:text-sm lg:text-base  h-full  flex justify-center items-center relative">
               {columnKey === "pkgSends" && indicators.whatsapp && (
-                <span className="bg-blue-500 text-white w-6 h-6 sm:w-6 sm:h-6 sm:text-sm  xl:h-5 xl:w-5 xl:text-xs 2xl:h-16 2xl:w-16 2xl:text-4xl rounded-full flex items-center justify-center text-xs font-bold">
+                <span
+                  title="company_whatsapp_attempts"
+                  className="bg-blue-500 text-white w-6 h-6 sm:w-6 sm:h-6 sm:text-sm  xl:h-5 xl:w-5 xl:text-xs 2xl:h-16 2xl:w-16 2xl:text-4xl rounded-full flex items-center justify-center text-xs font-bold cursor-pointer"
+                >
                   {indicators.whatsapp}
                 </span>
               )}
               {columnKey === "new" && indicators.email && (
-                <span className="bg-black text-white w-6 h-6 sm:w-6 sm:h-6 sm:text-sm  xl:h-5 xl:w-5 xl:text-xs 2xl:h-16 2xl:w-16 rounded-full flex items-center justify-center text-xs 2xl:text-4xl font-bold">
+                <span
+                  title="company_email_attempts"
+                  className="bg-black text-white w-6 h-6 sm:w-6 sm:h-6 sm:text-sm  xl:h-5 xl:w-5 xl:text-xs 2xl:h-16 2xl:w-16 rounded-full flex items-center justify-center text-xs 2xl:text-4xl font-bold cursor-pointer"
+                >
                   {indicators.email}
                 </span>
               )}
