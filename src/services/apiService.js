@@ -69,8 +69,8 @@ export const getDateRanges = (selectedPeriod) => {
     };
   }
 
-  // Special case for "Yesterday"
-  if (selectedPeriod === 'Yesterday') {
+  // Special case for "Last 24h"
+  if (selectedPeriod === 'Last 24h') {
     const yesterday = new Date(today);
     yesterday.setDate(today.getDate() - 1);
     const yesterdayFormatted = formatDateForAPI(yesterday);

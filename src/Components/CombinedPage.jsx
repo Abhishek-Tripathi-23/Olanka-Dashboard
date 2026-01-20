@@ -42,7 +42,7 @@ function SortableItem({ id, children, className = "" }) {
 const TimePeriodDropdown = ({ onSelect, onClose }) => {
   const options = [
     "Today",
-    "Yesterday",
+    "Last 24h",
     "Last 2 Days",
     "Last Week",
     "Last Month",
