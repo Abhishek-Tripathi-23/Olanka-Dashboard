@@ -59,7 +59,7 @@ export const getDateRanges = (selectedPeriod) => {
   const today = new Date();
 
   // Special case for "Today" - use today's date for both from and to
-  if (selectedPeriod === 'Today' || selectedPeriod === 'Last 24 Hours') {
+  if (selectedPeriod === 'Last 24h' || selectedPeriod === 'Last 24 Hours') {
     const todayFormatted = formatDateForAPI(today);
     return {
       activityFromDate: todayFormatted,
@@ -69,8 +69,8 @@ export const getDateRanges = (selectedPeriod) => {
     };
   }
 
-  // Special case for "Last 24h"
-  if (selectedPeriod === 'Last 24h') {
+  // Special case for "Yesterday"
+  if (selectedPeriod === 'Yesterday') {
     const yesterday = new Date(today);
     yesterday.setDate(today.getDate() - 1);
     const yesterdayFormatted = formatDateForAPI(yesterday);

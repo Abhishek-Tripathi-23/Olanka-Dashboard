@@ -41,8 +41,8 @@ function SortableItem({ id, children, className = "" }) {
 // Dropdown component
 const TimePeriodDropdown = ({ onSelect, onClose }) => {
   const options = [
-    "Today",
     "Last 24h",
+    "Yesterday",
     "Last 2 Days",
     "Last Week",
     "Last Month",
@@ -117,7 +117,7 @@ const TeamDropdown = ({ teams, onSelect, onClose, selectedTeam }) => {
 // Right Filter Dropdown component
 const RightFilterDropdown = ({ onSelect, onClose, selectedPeriod }) => {
   const options = [
-    "Today",
+    "Last 24h",
     "This week",
     "This month",
     "This year",
@@ -164,7 +164,7 @@ export const CombinedPage = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [teamDropdownOpen, setTeamDropdownOpen] = useState(false);
   const [rightFilterOpen, setRightFilterOpen] = useState(false);
-  const [selectedPeriod, setSelectedPeriod] = useState("Today");
+  const [selectedPeriod, setSelectedPeriod] = useState("Last 24h");
   const [selectedRightPeriod, setSelectedRightPeriod] = useState("This month");
   const [assistantManagers, setAssistantManagers] = useState([]);
   const [selectedTeam, setSelectedTeam] = useState(null);
